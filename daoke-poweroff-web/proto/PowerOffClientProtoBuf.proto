@@ -1,0 +1,11 @@
+package me.daoke.poweroff.entity;
+option java_package = "me.daoke.poweroff.entity";
+option java_outer_classname = "PowerOffClientProtoBuf";
+
+message KeyValue{
+     required int32 normal = 1;
+     required string tokenCode =2;
+     optional string accountID = 3;
+     optional string imei = 4;
+     optional string travelID = 5;
+}

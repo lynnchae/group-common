@@ -1,0 +1,13 @@
+#ignore class files!
+
+*.class
+#ignore classpath and project files!
+*project
+*.classpath
+*iml
+*target
+*.settings
+*.idea
+*logs
+*mileage.log
+*.war

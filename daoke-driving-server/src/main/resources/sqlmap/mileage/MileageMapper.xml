@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mileage-cal">
+
+
+    <insert id="insertPowerOffRecord" parameterType="me.daoke.driving.entity.UserPowerOff" >
+        insert userPowerOff (accountID,imei,status,isValid,createDate,modifyDate) values (#{accountID},#{imei},#{status},#{isValid},#{createDate},#{modifyDate})
+    </insert>
+    <select id="getPowerOffRecord" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(0) from userPowerOff  where date(createDate) = date(now()) and accountID=#{value}
+    </select>
+    <select id="getPowerOffShellDetailWhthDate" parameterType="java.lang.String" resultType="me.daoke.driving.entity.UserRochelleDetail">
+    <![CDATA[
+        select * from userRochelleDetail  where
+        (
+        (ruleID = 'powerThreeDay' and date(createDate)<=date(now()) and date(createDate)>=date_sub(date(now()),interval 2 day))
+        or
+        (ruleID = 'powerFiveDay' and date(createDate)<=date(now()) and date(createDate)>=date_sub(date(now()),interval 4 day))
+        or
+        (ruleID = 'powerSevenDay' and date(createDate)<=date(now()) and date(createDate)>=date_sub(date(now()),interval 6 day))
+         )
+        and accountID = ${value}
+          ]]>
+</select>
+    <insert id="insertUserRochelleRule" parameterType="me.daoke.driving.entity.UserRochelleDetail" >
+        insert userRochelleDetail (accountID,imei,ruleCode,rochelle,isValid) values (#{accountID},#{imei},#{ruleCode},#{rochelle},#{isValid})
+    </insert>
+
+    <select id="getShellValueRule" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select rochell from userRochelleRule  where ruleCode = ${value}
+    </select>
+   <!--获取指定时间内用户某开机信息 -->
+    <select id="getPowerOffRecordNumWithDate" parameterType="java.util.Map" resultType="java.lang.Integer">
+        <![CDATA[
+        select count(0) from userPowerOff  where accountID = ${accountID}
+        and date(createDate)<= date(now()) and date(createDate)>=date_sub(date(now()),interval ${dateValue} day)
+         ]]>
+    </select>
+
+</mapper>

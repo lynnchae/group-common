@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <appender class="org.apache.log4j.ConsoleAppender" name="stdout">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param value="%d{yyyy-MM-dd HH:mm:ss} [%p]-[%t]-[%c]-[%l] %m%n"
+				name="ConversionPattern" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="debug" />
+			<param name="LevelMax" value="info" />
+		</filter>
+	</appender>
+	
+    
+    <appender name="logfile" class="org.apache.log4j.DailyRollingFileAppender">     
+        <param name="File" value="${catalina.base}/logs/motocade_logs.log" />
+        <param name="DatePattern" value="'motorcade.'yyyy-MM-dd'.log'" />
+        <layout class="org.apache.log4j.PatternLayout">     
+            <param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss\} %-5p] [%t] (%c:%L) - %m%n" />     
+        </layout>     
+    </appender>   
+
+    <appender name="errorlog" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="${catalina.base}/logs/errorlog.log" />     
+        <param name="DatePattern" value="'error.'yyyy-MM-dd'.log'" />     
+        <layout class="org.apache.log4j.PatternLayout">     
+            <param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss\} %-5p] [%t] (%c:%L) - %m%n" />     
+        </layout>    
+    </appender>
+
+
+    <!-- Connection Log -->
+    <logger name="com.ibatis" additivity="false">
+        <level value="info"/>
+    </logger>
+    <logger name="com.ibatis.common.jdbc.ScriptRunner">
+        <level value="info"/>
+    </logger>
+    <logger name="com.ibatis.common.jdbc.SimpleDataSource">
+        <level value="info"/>
+    </logger>
+    <logger name="com.ibatis.sqlmap.engine.impl.SqlMapClientDelegate">
+        <level value="info"/>
+    </logger>
+    <logger name="java.sql.Connection" additivity="false">
+        <level value="info"/>
+    </logger>
+    <logger name="java.sql.PreparedStatement" additivity="false">
+        <level value="info"/>
+    </logger>
+    <logger name="java.sql.ResultSet" additivity="false">
+        <level value="info"/>
+    </logger>
+    <logger name="java.sql.Statement" additivity="false">
+        <level value="info"/>
+    </logger>
+
+    <logger name="me.daoke.poweroff.*" additivity="false">
+        <level value="info"/>
+    </logger>
+    
+    <root>
+        <level value="info"/>
+        <appender-ref ref="stdout"/>
+        <appender-ref ref="logfile"/>
+        <appender-ref ref="errorlog"/>
+    </root>
+
+</log4j:configuration>

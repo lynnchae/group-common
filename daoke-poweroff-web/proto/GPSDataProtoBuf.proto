@@ -1,0 +1,28 @@
+package me.daoke.poweroff.entity;
+option java_package = "me.daoke.poweroff.entity";
+option java_outer_classname = "GPSDataProtuBuf";
+
+
+
+message Location {
+      required double longitude =1;
+
+      required double latitude =2;
+
+      required int32 speed =3;
+
+      required int32 GPSTime =4;
+
+      required sint32 altitude =5;
+
+      required sint32 direction =6;
+}
+
+
+message GPSData{
+    optional string IMEI = 1;
+    required string tokenCode = 2;
+    optional string accountID = 3;
+    repeated Location locations = 4;
+    repeated Location extragps = 5;
+}

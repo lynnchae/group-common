@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="userGrade">
+    <!--根据用户ID查询用户等级-->
+   <select id="queryByAccountID" parameterType="java.lang.String" resultType="userGrade">
+            SELECT accountID,grade FROM userGrade WHERE accountID=#{accountID} AND isValid=1
+   </select>
+    <!-- 添加用户等级-->
+    <insert id="insertUserGrade" parameterType="userGrade" >
+            INSERT INTO userGrade(accountID,grade,rochelle,isValid) VALUES(#{accountID},#{grade},#{rochelle},#{isValid})
+    </insert>
+
+    <!-- 修改用户等级-->
+    <update id="updateUserGrade" parameterType="userGrade">
+          UPDATE userGrade SET grade=#{grade},rochelle=#{rochelle},isValid=#{isValid} where accountID=#{accountID}
+    </update>
+     <update id="updateUserGradeWhitTotalChelle" parameterType="java.util.Map">
+         <![CDATA[
+         update userGrade a set grade=(select MAX(recordID)
+         from ratingRules where
+         rochelle=(select min(b.rochelle) from ratingRules b where rochelle >= a.rochelle+#{rochelle})),rochelle=rochelle+#{rochelle}
+           where accountID = #{accountID}
+          ]]>
+     </update>
+
+
+
+
+</mapper>

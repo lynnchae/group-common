@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <appender class="org.apache.log4j.ConsoleAppender" name="stdout">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param value="%d{yyyy-MM-dd HH:mm:ss} [%p]-[%t]-[%l] %m%n" name="ConversionPattern"/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="info" />
+            <param name="LevelMax" value="warn" />
+        </filter>
+    </appender>
+
+    <appender name="logfileInfo" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="./logs/mileage.log" />
+        <param name="DatePattern" value="'error.'yyyy-MM-dd'.log'" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param value="%d{yyyy-MM-dd HH:mm:ss} [%p]-[%t]-[%l] %m%n" name="ConversionPattern"/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="info" />
+            <param name="LevelMax" value="warn" />
+        </filter>
+    </appender>
+
+    <appender name="logfileError" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="./logs/mileage_errorlog" />
+        <param name="DatePattern" value="'error.'yyyy-MM-dd'.log'" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss\} %-5p] [%t] (%c:%L) - %m%n" />
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="error" />
+            <param name="LevelMax" value="error" />
+        </filter>
+    </appender>
+
+    <logger name="me.daoke.driving.*" additivity="false">
+        <level value="warn"/>
+        <appender-ref ref="logfileInfo"/>
+        <appender-ref ref="logfileError"/>
+    </logger>
+
+    <root>
+        <level value="warn"/>
+      <!--  <appender-ref ref="stdout"/>-->
+        <appender-ref ref="logfileInfo"/>
+    </root>
+
+</log4j:configuration>

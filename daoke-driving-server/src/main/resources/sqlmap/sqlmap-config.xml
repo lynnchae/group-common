@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>    
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<setting name="lazyLoadingEnabled" value="false" />
+        <setting name="cacheEnabled" value="true"/>
+	</settings>
+	<typeAliases>
+        <!--用户等级-->
+		<typeAlias  alias ="userGrade" type="me.daoke.driving.entity.UserGrade"/>
+        <typeAlias  alias ="userRochelleDetail" type="me.daoke.driving.entity.UserRochelleDetail"/>
+        <typeAlias  alias ="UserRochelleRule"  type="me.daoke.driving.entity.UserRochelleRule"></typeAlias>
+	</typeAliases>
+
+    <!-- 增加mapper.xml文件 -->
+    <mappers>
+        <mapper  resource ="sqlmap/user/UserGradeMapper.xml" />
+        <mapper  resource ="sqlmap/mileage/MileageMapper.xml" />
+        <mapper  resource ="sqlmap/user/UserRochelleDetailMapper.xml" />
+        <mapper  resource ="sqlmap/user/UserRochelleRuleMapper.xml"/>
+    </mappers>
+	
+</configuration>

@@ -1,0 +1,27 @@
+package me.daoke.poweroff.entity;
+option java_package = "me.daoke.poweroff.entity";
+option java_outer_classname = "CommonProtoBufResult";
+
+message KeyValue{
+     required string key = 1;
+     required string value = 2;
+}
+
+message Map {
+     repeated KeyValue items = 1;
+}
+
+message OptMap{
+	required string key=1;
+	repeated Map  value=2;
+}
+
+
+message rs{
+    required Map infoMap = 1;
+    repeated Map resultList = 2;
+    optional Map optInfoMap = 3;
+    repeated OptMap optResultList = 4;
+    optional int32 resultCode = 5[default=0];
+    repeated Map extTwoRsList =6;
+}

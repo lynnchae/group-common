@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <appender class="org.apache.log4j.ConsoleAppender" name="stdout">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param value="%d{yyyy-MM-dd HH:mm:ss} [%p]-[%t]-[%l] %m%n" name="ConversionPattern"/>
+        </layout>
+    </appender>
+
+    <appender class="org.apache.log4j.RollingFileAppender" name="logfileInfo">
+        <param name="File" value="./logs/mileage.log"/>
+        <param name="MaxFileSize" value="20MB"/>
+        <param name="MaxBackupIndex" value="10"/>
+        <param name="ImmediateFlush" value="true"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param value="%d{yyyy-MM-dd HH:mm:ss} [%p]-[%t]-[%l] %m%n" name="ConversionPattern"/>
+        </layout>
+    </appender>
+
+    <appender class="org.apache.log4j.RollingFileAppender" name="logfileDebug">
+        <param name="File" value="target/logs/solruseridxclientDebug.log"/>
+        <param name="MaxFileSize" value="20MB"/>
+        <param name="MaxBackupIndex" value="10"/>
+        <param name="ImmediateFlush" value="true"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param value="%d{yyyy-MM-dd HH:mm:ss} [%p]-[%t]-[%l] %m%n" name="ConversionPattern"/>
+        </layout>
+    </appender>
+
+    <logger name="me.daoke.mileage" additivity="false">
+        <level value="debug"/>
+        <appender-ref ref="stdout"/>
+        <appender-ref ref="logfileInfo"/>
+    </logger>
+
+    <root>
+        <level value="info"/>
+        <appender-ref ref="stdout"/>
+        <appender-ref ref="logfileInfo"/>
+    </root>
+
+</log4j:configuration>
